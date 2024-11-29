@@ -1,0 +1,32 @@
+prefix: "&6[GKAdminCore] &r"
+
+errors:
+  no_permission: "&cYou do not have permission to use this command."
+  player_only: "&cThis command can only be used by a player."
+  invalid_args: "&cInvalid arguments. Usage: &e{usage}"
+  invalid_number: "&cPlease provide a valid number."
+
+success:
+  fly_enabled: "&aFlight mode enabled."
+  fly_disabled: "&aFlight mode disabled."
+  fly_speed_changed: "&aFlight speed set to &e{speed}&a."
+  sudo_success: "&aExecuted command as &e{target}&a."
+  enchant_applied: "&aEnchantment &e{enchant}&a applied with level &e{level}&a."
+  warp_created: "&aWarp &e{name}&a has been created."
+  warp_deleted: "&cWarp &e{name}&c has been deleted."
+  warp_teleported: "&aTeleported to warp &e{name}&a."
+  portal_pos1_set: "&aPosition 1 set at &e{location}&a."
+  portal_pos2_set: "&aPosition 2 set at &e{location}&a."
+  portal_destination_set: "&aDestination for portal &e{portal}&a set to &e{location}&a."
+  portal_wand_received: "&aPortal wand added to your inventory."
+  teleport_random: "&aRandom teleporting..."
+  teleport_success: "&aTeleported to &e{location}&a."
+
+commands:
+  fly: "/fly - Toggle flight mode."
+  flyspeed: "/flyspeed <0.1-1.0> - Set flight speed."
+  sudo: "/sudo <player> <command> - Run a command as another player."
+  enchant: "/enchant <enchantment> <level> - Add an enchantment to an item."
+  warp: "/warp <name> - Teleport to a saved warp."
+  portal: "/gkportalwand - Get a portal selection wand."
+  rtp: "/rtp - Random teleport to a safe location."

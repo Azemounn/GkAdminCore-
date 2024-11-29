@@ -1,0 +1,67 @@
+name: GKAdminCore
+version: 1.0
+main: com.gameknight.admincore.AdminCore
+api-version: 1.21
+
+commands:
+  fly:
+    description: Toggles flight for a player.
+    permission: gkadmincore.fly
+  flyspeed:
+    description: Adjusts flight speed for a player.
+    permission: gkadmincore.fly
+  sudo:
+    description: Runs a command as another player.
+    permission: gkadmincore.sudo
+  enchant:
+    description: Enchants an item, bypassing vanilla restrictions.
+    permission: gkadmincore.enchant
+  warp:
+    description: Teleports to a saved warp.
+    aliases: [gkwarp]
+    permission: gkadmincore.warp
+  rtp:
+    description: Randomly teleports a player to a location in the world.
+    permission: gkadmincore.rtp
+  pos1:
+    description: Sets the first position for a portal region.
+    permission: gkadmincore.portal
+  pos2:
+    description: Sets the second position for a portal region.
+    permission: gkadmincore.portal
+  setpos3:
+    description: Sets the destination for a portal region.
+    permission: gkadmincore.portal
+  gkportalwand:
+    description: Gives the portal selection wand.
+    aliases: [portalwand]
+    permission: gkadmincore.portal
+  gka:
+    description: Displays public plugin info.
+  info:
+    description: Provides detailed information about the plugin.
+    aliases: [help]
+    permission: gkadmincore.info
+  publicinfo:
+    description: Displays public plugin info.
+    permission: gkadmincore.public
+
+permissions:
+  gkadmincore.fly:
+    default: op
+  gkadmincore.fly.speed:
+    default: op
+  gkadmincore.sudo:
+    default: op
+  gkadmincore.enchant:
+    default: op
+  gkadmincore.warp:
+    default: true
+  gkadmincore.rtp:
+    default: op
+  gkadmincore.portal:
+    default: op
+  gkadmincore.info:
+    default: op
+  gkadmincore.public:
+    default: true
