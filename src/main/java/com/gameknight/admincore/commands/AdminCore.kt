@@ -6,7 +6,6 @@ import com.gkadmincore.completions.CommandTabCompleter
 import org.bukkit.plugin.java.JavaPlugin
 import com.gkadmincore.portals.PortalManager
 
-
 class AdminCore : JavaPlugin() {
 
     override fun onEnable() {
@@ -28,10 +27,10 @@ class AdminCore : JavaPlugin() {
     private fun registerCommands() {
         // Map commands to their executors
         val commands = mapOf(
-            "fly" to FlyCommand(),
-            "flyspeed" to FlySpeedCommand(),
-            "sudo" to SudoCommand(),
-            "enchant" to EnchantCommand(),
+            "fly" to FlyCommand(this),
+            "flyspeed" to FlySpeedCommand(this),
+            "sudo" to SudoCommand(this),
+            "enchant" to EnchantCommand(this),
             "warp" to WarpCommand(),
             "rtp" to RTPCommand(),
             "tp" to TpCommand(),

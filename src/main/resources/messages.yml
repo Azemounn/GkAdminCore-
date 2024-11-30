@@ -1,92 +1,133 @@
-prefix: "&6[GKAdminCore] &r"
+# General Error Messages
+error-no-permission: "§8[§c§lGKAdmin§8] §4✖ §cYou do not have permission to use this command!"
+error-player-only: "§8[§c§lGKAdmin§8] §4✖ §cOnly players can use this command!"
+error-invalid-arguments: "§8[§c§lGKAdmin§8] §4✖ §cInvalid arguments! Use §e/{0} help §cfor usage information."
+error-unknown-command: "§8[§c§lGKAdmin§8] §4✖ §cUnknown command! Type §e/help §cfor a list of available commands."
 
-general:
-  players_only: "&cThis command can only be used by players!"
-  unknown_error: "&cAn unknown error occurred."
+# General Success Messages
+success-command-executed: "§8[§a§lGKAdmin§8] §2✔ §aCommand executed successfully."
 
-errors:
-  no_permission: "&cYou do not have permission to use this command."
-  player_only: "&cThis command can only be used by a player."
-  invalid_args: "&cInvalid arguments. Usage: &e{usage}"
-  invalid_number: "&cPlease provide a valid number."
-  portal_not_found: "&cPortal &e{name}&c does not exist."
-  warp_not_found: "&cWarp &e{name}&c does not exist."
+# EnchantCommand Messages
+enchant-usage: "§8[§c§lGKAdmin§8] §4✖ §cUsage: /enchant <enchantment> <level>"
+error-invalid-enchantment: "§8[§c§lGKAdmin§8] §4✖ §cInvalid enchantment name! Use §e/enchant list §cfor available enchantments."
+error-invalid-level: "§8[§c§lGKAdmin§8] §4✖ §cLevel must be a positive number!"
+error-no-item-in-hand: "§8[§c§lGKAdmin§8] §4✖ §cYou must be holding an item to enchant it!"
+enchant-success: "§8[§a§lGKAdmin§8] §2✔ §aSuccessfully added §b{0} §alevel §b{1} §ato your §d{2}§a."
 
-success:
-  fly_enabled: "&aFlight mode enabled."
-  fly_disabled: "&aFlight mode disabled."
-  fly_speed_changed: "&aFlight speed set to &e{speed}&a."
-  sudo_success: "&aExecuted command as &e{target}&a."
-  enchant_applied: "&aEnchantment &e{enchant}&a applied with level &e{level}&a."
-  warp_created: "&aWarp &e{name}&a has been created."
-  warp_deleted: "&cWarp &e{name}&c has been deleted."
-  warp_teleported: "&aTeleported to warp &e{name}&a."
-  portal_pos1_set: "&aPosition 1 set at &e{location}&a."
-  portal_pos2_set: "&aPosition 2 set at &e{location}&a."
-  portal_destination_set: "&aDestination for portal &e{portal}&a set to &e{location}&a."
-  portal_wand_received: "&aPortal wand added to your inventory."
-  teleport_random: "&aRandom teleporting..."
-  teleport_success: "&aTeleported to &e{location}&a."
-  portal_cooldown_message: "You must wait {cooldown} seconds before using this portal again!"
-  portal_created: "&aPortal &e{name}&a successfully created!"
-  portal_deleted: "&cPortal &e{name}&c has been deleted."
-  portal_list: "&aPortal list: &e{list}"
+# FlyCommand Messages
+fly-enabled: "§8[§b§lGKAdmin§8] §3✈ §bFlight mode enabled."
+fly-disabled: "§8[§c§lGKAdmin§8] §4✈ §cFlight mode disabled."
+fly-usage: "§8[§c§lGKAdmin§8] §4✖ §cInvalid argument. Usage: /fly [on|off]"
+fly-toggle: "§8[§b§lGKAdmin§8] §3✈ Flight mode §e{0}§b."
 
-commands:
-  fly: "/fly - Toggle flight mode."
-  flyspeed: "/flyspeed <0.1-1.0> - Set flight speed."
-  sudo: "/sudo <player> <command> - Run a command as another player."
-  enchant: "/enchant <enchantment> <level> - Add an enchantment to an item."
-  warp: "/warp <name> - Teleport to a saved warp."
-  portal: "/gkportalwand - Get a portal selection wand."
-  rtp: "/rtp - Random teleport to a safe location."
-  pos1: "/pos1 - Set position 1 for a portal."
-  pos2: "/pos2 - Set position 2 for a portal."
-  setdesti: "/setdesti <name> - Set the destination for a portal."
-  gkportalregion: "/gkportalregion create <name> <pos1> <pos2> <destination> - Create a portal region."
+# FlySpeedCommand Messages
+flyspeed-usage: "§8[§c§lGKAdmin§8] §4✖ §cUsage: /flyspeed <speed> (1 - 10)"
+flyspeed-invalid: "§8[§c§lGKAdmin§8] §4✖ §cSpeed must be between §e1 §cand §e10§c."
+flyspeed-set: "§8[§b§lGKAdmin§8] §3✈ Flight speed set to §e{0}§b."
 
+# RTPCommand Messages
+rtp-initiated: "§6[GKAdmin] §ePreparing to teleport you to a random location... Hold on tight!"
+rtp-success: "§6[GKAdmin] §aSuccessfully teleported! Enjoy your new surroundings."
+rtp-failure: "§6[GKAdmin] §cUnable to find a suitable location to teleport you. Please try again in a moment."
+
+# SudoCommand Messages
+sudo-usage: "§8[§c§lGKAdmin§8] §4✖ §cUsage: /sudo <player> <command>"
+sudo-success: "§8[§a§lGKAdmin§8] §2✔ §aSuccessfully made §e{0} §arun the command: §e/{1}§a."
+
+# WarpCommand Messages
+warp-usage: "§8[§c§lGKAdmin§8] §4✖ §cUsage: /warp <warp-name>"
+warp-success: "§8[§e§lGKAdmin§8] §6♻ Teleporting to warp §e{0}§a..."
+warp-not-found: "§8[§c§lGKAdmin§8] §4✖ §cThe warp §e{0} §cdoes not exist."
+
+# TPCommand Messages
+tp-usage: "§8[§c§lGKAdmin§8] §4✖ §cUsage: /tp <player>"
+tp-success: "§8[§a§lGKAdmin§8] §2✔ §aTeleported to §e{0}§a."
+
+# TphereCommand Messages
+tphere-usage: "§8[§c§lGKAdmin§8] §4✖ §cUsage: /tphere <player>"
+tphere-success: "§8[§a§lGKAdmin§8] §2✔ §aTeleported §e{0} §ato your location."
+
+# TPACommand Messages
+tpa-request-sent: "§8[§e§lGKAdmin§8] §6➜ Teleport request sent to §e{0}§a."
+tpa-request-received: "§8[§e§lGKAdmin§8] §e{0} §ahas requested to teleport to your location. Type §a/tpaccept §ato accept or §c/tpdeny §cto deny."
+tpa-accepted: "§8[§a§lGKAdmin§8] §2✔ Teleport request accepted. Teleporting §e{0}§a..."
+tpa-denied: "§8[§c§lGKAdmin§8] §4✖ Teleport request denied."
+
+# TpAcceptCommand & TpDenyCommand Messages
+tpaccept-usage: "§8[§c§lGKAdmin§8] §4✖ §cUsage: /tpaccept"
+tpdeny-usage: "§8[§c§lGKAdmin§8] §4✖ §cUsage: /tpdeny"
+tpaccept-success: "§8[§a§lGKAdmin§8] §2✔ You accepted the teleport request from §e{0}§a."
+tpdeny-success: "§8[§c§lGKAdmin§8] §4✖ You denied the teleport request from §e{0}§c."
+rtp:
+
+
+#portal messages
 portal:
-  set_position1: "&aPosition 1 set at &e{x}, {y}, {z}."
-  set_position2: "&aPosition 2 set at &e{x}, {y}, {z}."
-  invalid_position: "&cInvalid position type!"
-  set_destination_usage: "&cUsage: /setdesti <destination>"
-  destination_set: "&aDestination &e{destination} &aset successfully!"
-  destination_failed: "&cFailed to set destination!"
-  destination_not_found: "&cDestination &e{destination} &cnot found!"
-  create_usage: "&cUsage: /gkportalregion create <name> <destination>"
-  created_success: "&aPortal &e{portal} &acreated successfully!"
-  create_failed: "&cFailed to create portal &e{portal}!"
-  positions_not_set: "&cYou must set both positions before creating a portal!"
-  delete_usage: "&cUsage: /deleteportal <name>"
-  deleted_success: "&aPortal &e{portal} &adeleted successfully!"
-  delete_failed: "&cFailed to delete portal &e{portal}!"
-  no_portals_found: "&cNo portals found!"
-  list: "&aPortals: &e{portals}"
-  wand_granted: "&aYou have received the portal wand!"
-  preview_start: "&aPreviewing portal region..."
+  wand_granted: "§aYou have been given a §6Portal Wand§a!"
+  set_position1: "§aPosition 1 set at §bX: {x}, Y: {y}, Z: {z}."
+  set_position2: "§aPosition 2 set at §bX: {x}, Y: {y}, Z: {z}."
+  destination_usage: "§cUsage: /setdesti <destination-name>"
+  destination_set: "§aPortal destination set to §e{destination}§a."
+  destination_error: "§cFailed to set portal destination."
+  destination_not_found: "§cNo destination found with the name §e{destination}§c."
+  creation_success: "§aPortal §e{portal} §ahas been successfully created!"
+  creation_failed: "§cFailed to create portal §e{portal}§c."
+  deletion_success: "§aPortal §e{portal} §ahas been successfully deleted."
+  deletion_failed: "§cNo portal found with the name §e{portal}§c."
+  list_empty: "§cNo portals available."
+  list_header: "§aList of available portals:"
+  list_item: "  - §e{name}§a at §bX: {x}, Y: {y}, Z: {z}"
+  invalid_sound: "§cInvalid portal sound: §e{sound}§c. Using default sound."
+  teleport: "§aTeleporting to portal §e{portal}§a..."
+  preview_error: "§cError: You must set both positions before previewing the portal."
+  different_worlds: "§cPositions are in different worlds. Please select positions in the same world."
+  invalid_particle: "§cInvalid particle type configured!"
+  preview_start: "§aPreviewing portal region..."
 
+# Portal Wand Command Messages
+portal-wand-received: "§8[§a§lGKAdmin§8] §2✔ You have received the §6Portal Wand§a. Use it to select positions for your portal."
 
+# Help Command Pages
+help-page-header: "§8[§e§lGKAdmin§8] §e========== §6Help Menu §e(Page {0}/{1}) =========="
+help-page-footer: "§8[§b§lGKAdmin§8] §7Use §e/help {0} §7for the next page."
+help-invalid-page: "§8[§c§lGKAdmin§8] §4✖ Invalid page number. Use §e/help 1 §cfor the first page."
 
-  tpa:
-    usage: "§cUsage: /tpa <player>"
-    self_request: "§cYou cannot send a teleport request to yourself!"
-    request_sent: "§aTeleport request sent to {target}."
-    request_received: "§a{player} has requested to teleport to you. Use /tpaccept or /tpdeny."
-    cooldown: "§cYou must wait {time} seconds before sending another request."
-    not_found: "§cPlayer not found."
-  tpaccept:
-    success: "§aAccepted teleport request from {player}."
-    accepted: "§aYour teleport request to {target} has been accepted."
-    no_request: "§cNo teleport requests to accept."
-  tpdeny:
-    success: "§aDenied teleport request from {player}."
-    denied: "§cYour teleport request to {target} has been denied."
-    no_request: "§cNo teleport requests to deny."
-  tp:
-    usage: "§cUsage: /tp <player>"
-    success: "§aTeleported to {target}."
-    not_found: "§cPlayer not found."
-  tphere:
-    usage: "§cUsage: /tphere <player>"
-    success: "§aTeleported {target} to you."
-    not_found: "§cPlayer not found."
+# Commands for Help Pages
+help-page-1:
+  header: "§8[§e§lGKAdmin§8] §e========== §6Basic Commands §e=========="
+  commands:
+    - "§b/fly §7- Toggle flight mode."
+    - "§b/flyspeed <speed> §7- Set flight speed (1 - 10)."
+    - "§b/warp <name> §7- Teleport to a warp."
+    - "§b/warps §7- List all available warps."
+    - "§b/rtp §7- Random teleport."
+help-page-2:
+  header: "§8[§e§lGKAdmin§8] §e========== §6Player Commands §e=========="
+  commands:
+    - "§b/sudo <player> <command> §7- Run a command as another player."
+    - "§b/tp <player> §7- Teleport to a player."
+    - "§b/tphere <player> §7- Bring a player to your location."
+    - "§b/tpa <player> §7- Request to teleport to a player."
+    - "§b/tpaccept, /tpdeny §7- Accept or deny teleport requests."
+help-page-3:
+  header: "§8[§e§lGKAdmin§8] §e========== §6Portal Commands §e=========="
+  commands:
+    - "§b/gkportalwand §7- Get the portal wand."
+    - "§b/pos1, /pos2 §7- Set portal positions."
+    - "§b/setdesti <name> §7- Set portal destination."
+    - "§b/gkportalregion <create|delete|list> §7- Manage portal regions."
+    - "§7End of help pages."
+
+# General Info Messages
+no-target-player: "§8[§c§lGKAdmin§8] §4✖ Could not find player §e{0}§c."
+portal-already-exists: "§8[§c§lGKAdmin§8] §4✖ A portal with the name §e{0} §calready exists!"
+portal-does-not-exist: "§8[§c§lGKAdmin§8] §4✖ No portal found with the name §e{0}§c."
+portal-invalid-destination: "§8[§c§lGKAdmin§8] §4✖ Invalid destination. Please make sure the destination exists."
+
+# Portal Preview Messages
+portal-preview-start: "§8[§e§lGKAdmin§8] §6➜ Previewing the portal region for §e{0}§a..."
+portal-preview-end: "§8[§a§lGKAdmin§8] §2✔ Portal preview complete."
+
+# Configuration Reload Messages
+config-reload-success: "§8[§a§lGKAdmin§8] §2✔ Configuration successfully reloaded."
+config-reload-failure: "§8[§c§lGKAdmin§8] §4✖ Failed to reload configuration. Check the console for errors."

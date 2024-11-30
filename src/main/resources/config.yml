@@ -27,3 +27,37 @@ permissions-defaults:
     rtp: true
     tpa: true
     portal: true
+
+  #rtp
+  rtp:
+    x-range: 5000  # The range for random x coordinates
+    z-range: 5000  # The range for random z coordinates
+    y-min: 60      # The minimum y-coordinate (ground level)
+    y-max: 100     # The maximum y-coordinate (to prevent teleporting underground)
+
+  sudo:
+    cooldown: 5  # in seconds
+
+  tp:
+    cooldown: 5 # Cooldown in seconds for the /tp command
+
+  tphere:
+    cooldown: 5 # Cooldown in seconds for the /tphere command
+
+  tpa:
+    cooldown: 10 # Cooldown in seconds for the /tpa command
+
+  tpaccept:
+    cooldown: 5 # Cooldown in seconds for the /tpaccept command
+
+  tpdeny:
+    cooldown: 5 # Cooldown in seconds for the /tpdeny command
+
+  warp:
+    cooldown: 10 # Cooldown in seconds for the /warp command
+
+  # config.yml
+  portal:
+    particle: "WHITE_SMOKE"  # Particle effect when previewing portal
+    sound: "ENTITY_ENDERMAN_TELEPORT"  # Sound played when teleporting through portal
+    cooldown_seconds: 5  # Cooldown for portal teleportation in seconds

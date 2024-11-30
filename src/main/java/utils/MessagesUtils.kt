@@ -1,18 +1,52 @@
-package com.gkadmincore.utils
+package com.gameknight.admincore.utils
 
-import org.bukkit.command.CommandSender
+import org.bukkit.configuration.file.YamlConfiguration
+import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
+import java.io.File
 
-object MessagesUtils {
-    private lateinit var plugin: JavaPlugin
+class MessagesUtils(private val plugin: JavaPlugin) {
 
-    fun loadMessages(plugin: JavaPlugin) {
-        this.plugin = plugin
+    private lateinit var messagesConfig: YamlConfiguration
+
+    init {
+        loadMessages()
     }
 
-    fun sendNoPermissionMessage(sender: CommandSender) {
-        sender.sendMessage("§6[GameKnight2k] §cYou do not have permission to execute this command.")
-        sender.sendMessage("§7Plugin Version: ${plugin.description.version}")
-        sender.sendMessage("§7Created by Azemounn.")
+    // Load messages from the messages.yml file
+    private fun loadMessages() {
+        val messagesFile = File(plugin.dataFolder, "messages.yml")
+        if (!messagesFile.exists()) {
+            plugin.saveResource("messages.yml", false) // Copy the default if not exists
+        }
+        messagesConfig = YamlConfiguration.loadConfiguration(messagesFile)
+    }
+
+    // Get message by key with dynamic replacements (e.g., {0}, {1}, {player_name}, etc.)
+    fun getMessage(key: String, vararg replacements: Any): String {
+        val message = messagesConfig.getString(key)
+            ?: return "§cError: Message key '$key' not found."
+
+        // Replace placeholders like {0}, {1}, etc., with actual values
+        var finalMessage = message
+        replacements.forEachIndexed { index, replacement ->
+            finalMessage = finalMessage.replace("{${index}}", replacement.toString())
+        }
+
+        // Optionally replace player-specific placeholders like {player_name}
+        finalMessage = finalMessage.replace("{player_name}", replacements.firstOrNull()?.toString() ?: "")
+
+        // Return the final formatted message, ensuring color codes are parsed
+        return finalMessage.replace("&", "§")
+    }
+
+    // Example of getting a message specific to a player
+    fun getPlayerMessage(key: String, player: Player, vararg replacements: Any): String {
+        return getMessage(key, player.name, *replacements)
+    }
+
+    // Get a list of messages from the config file (for lists of commands or other multi-line content)
+    fun getList(key: String): List<String> {
+        return messagesConfig.getStringList(key).map { it.replace("&", "§") }  // Replace color codes
     }
 }

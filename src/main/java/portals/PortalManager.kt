@@ -3,6 +3,7 @@ package com.gkadmincore.portals
 import com.gkadmincore.utils.ConfigUtils
 import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.plugin.java.JavaPlugin
 
 object PortalManager {
     private val portals = mutableMapOf<String, Portal>()
@@ -23,7 +24,7 @@ object PortalManager {
                     Bukkit.getLogger().warning("Invalid portal destination for portal: $portalName")
                 }
             } else {
-                Bukkit.getLogger().warning("Portal $portalName is not properly configured.")
+                Bukkit.getLogger().warning("Portal '$portalName' is not properly configured.")
             }
         }
     }
@@ -43,6 +44,33 @@ object PortalManager {
             }
         }
         return success
+    }
+
+    // --- Set the destination for a given portal ---
+    fun setPortalDestination(portalName: String, destination: Location): Boolean {
+        if (!portals.containsKey(portalName)) {
+            Bukkit.getLogger().warning("Portal '$portalName' does not exist.")
+            return false
+        }
+
+        val portal = portals[portalName] ?: return false
+        val updatedPortal = portal.copy(destination = destination) // Create a copy with updated destination
+        portals[portalName] = updatedPortal
+
+        // Update the configuration
+        val success = ConfigUtils.addPortal(portalName, portal.pos1, portal.pos2, destination.world?.name ?: "")
+        if (!success) {
+            Bukkit.getLogger().warning("Failed to update destination for portal: $portalName in configuration.")
+            return false
+        }
+
+        Bukkit.getLogger().info("Portal '$portalName' destination updated successfully.")
+        return true
+    }
+
+    // --- Get a portal by its name ---
+    fun getPortal(portalName: String): Portal? {
+        return portals[portalName]
     }
 
     // --- Delete a portal from the configuration ---
@@ -89,8 +117,6 @@ object PortalManager {
 
     // --- Data class for portal representation ---
     data class Portal(val name: String, val pos1: Location, val pos2: Location, val destination: Location) {
-
-        // Check if the player is inside the portal's region
         fun isInside(location: Location): Boolean {
             val minX = minOf(pos1.x, pos2.x)
             val maxX = maxOf(pos1.x, pos2.x)

@@ -1,22 +1,26 @@
 package com.gkadmincore.commands
 
-import com.gkadmincore.utils.MessagesUtils
+import com.gameknight.admincore.utils.MessagesUtils // Ensure this import is correct
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.bukkit.plugin.java.JavaPlugin
 
-class FlyCommand : CommandExecutor {
+class FlyCommand(private val plugin: JavaPlugin) : CommandExecutor {
+
+    private val messagesUtils = MessagesUtils(plugin) // Initialize MessagesUtils with the plugin instance
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         // Check if sender has the required permission
         if (!sender.hasPermission("gkadmincore.fly")) {
-            MessagesUtils.sendNoPermissionMessage(sender)
+            sender.sendMessage(messagesUtils.getMessage("error-no-permission"))
             return true
         }
 
         // Ensure sender is a player
         if (sender !is Player) {
-            sender.sendMessage("§cOnly players can use this command!")
+            sender.sendMessage(messagesUtils.getMessage("error-player-only"))
             return true
         }
 
@@ -25,16 +29,16 @@ class FlyCommand : CommandExecutor {
             when (args[0].lowercase()) {
                 "on" -> {
                     sender.allowFlight = true
-                    sender.sendMessage("§aFlight mode enabled.")
+                    sender.sendMessage(messagesUtils.getMessage("fly-enabled"))
                     return true
                 }
                 "off" -> {
                     sender.allowFlight = false
-                    sender.sendMessage("§cFlight mode disabled.")
+                    sender.sendMessage(messagesUtils.getMessage("fly-disabled"))
                     return true
                 }
                 else -> {
-                    sender.sendMessage("§cInvalid argument. Usage: /fly [on|off]")
+                    sender.sendMessage(messagesUtils.getMessage("fly-usage"))
                     return true
                 }
             }
@@ -42,7 +46,7 @@ class FlyCommand : CommandExecutor {
 
         // Toggle flight mode if no arguments are provided
         sender.allowFlight = !sender.allowFlight
-        sender.sendMessage("§aFlight mode ${if (sender.allowFlight) "enabled" else "disabled"}.")
+        sender.sendMessage(messagesUtils.getMessage("fly-toggle", sender.allowFlight))
         return true
     }
 }

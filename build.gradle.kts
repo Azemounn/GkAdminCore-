@@ -60,10 +60,19 @@ tasks {
         })
     }
 
+    // Process resources (like config files)
     processResources {
-        // Replace placeholders in plugin.yml
+        // Set duplicates strategy to avoid issues with duplicate config entries
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+        // Ensure resources are copied into the output JAR, and replace placeholders in plugin.yml
         filesMatching("plugin.yml") {
             expand("version" to version)
+        }
+
+        // This ensures your config files are bundled into the JAR
+        from("src/main/resources") {
+            include("**/*.yml") // Includes all YAML files (config.yml, warps.yml, etc.)
         }
     }
 

@@ -13,6 +13,8 @@ private val teleportCooldowns = mutableMapOf<UUID, Long>() // Cooldown tracking
 
 // --- /tp Command ---
 class TpCommand : CommandExecutor {
+    private val tpCooldown: Long = ConfigUtils.getCooldown("tp.cooldown") // Cooldown fetched from config
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) {
             sender.sendMessage(ConfigUtils.getMessage("general.players_only"))
@@ -43,6 +45,8 @@ class TpCommand : CommandExecutor {
 
 // --- /tphere Command ---
 class TpHereCommand : CommandExecutor {
+    private val tphereCooldown: Long = ConfigUtils.getCooldown("tphere.cooldown") // Cooldown fetched from config
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) {
             sender.sendMessage(ConfigUtils.getMessage("general.players_only"))
@@ -73,6 +77,8 @@ class TpHereCommand : CommandExecutor {
 
 // --- /tpa Command ---
 class TpaCommand : CommandExecutor {
+    private val tpaCooldown: Long = ConfigUtils.getCooldown("tpa.cooldown") // Cooldown fetched from config
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) {
             sender.sendMessage(ConfigUtils.getMessage("general.players_only"))
@@ -106,7 +112,7 @@ class TpaCommand : CommandExecutor {
             teleportRequests[target] = sender
             target.sendMessage(ConfigUtils.getMessage("tpa.request_received").replace("{player}", sender.name))
             sender.sendMessage(ConfigUtils.getMessage("tpa.request_sent").replace("{target}", target.name))
-            teleportCooldowns[sender.uniqueId] = System.currentTimeMillis() + 10 * 1000 // 10-second cooldown
+            teleportCooldowns[sender.uniqueId] = System.currentTimeMillis() + (tpaCooldown * 1000) // Apply cooldown from config
         } else {
             sender.sendMessage(ConfigUtils.getMessage("tpa.not_found"))
         }
@@ -117,6 +123,8 @@ class TpaCommand : CommandExecutor {
 
 // --- /tpaccept Command ---
 class TpAcceptCommand : CommandExecutor {
+    private val tpacceptCooldown: Long = ConfigUtils.getCooldown("tpaccept.cooldown") // Cooldown fetched from config
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) {
             sender.sendMessage(ConfigUtils.getMessage("general.players_only"))
@@ -144,6 +152,8 @@ class TpAcceptCommand : CommandExecutor {
 
 // --- /tpdeny Command ---
 class TpDenyCommand : CommandExecutor {
+    private val tpdenyCooldown: Long = ConfigUtils.getCooldown("tpdeny.cooldown") // Cooldown fetched from config
+
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) {
             sender.sendMessage(ConfigUtils.getMessage("general.players_only"))
