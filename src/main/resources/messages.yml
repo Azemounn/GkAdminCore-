@@ -1,10 +1,16 @@
 prefix: "&6[GKAdminCore] &r"
 
+general:
+  players_only: "&cThis command can only be used by players!"
+  unknown_error: "&cAn unknown error occurred."
+
 errors:
   no_permission: "&cYou do not have permission to use this command."
   player_only: "&cThis command can only be used by a player."
   invalid_args: "&cInvalid arguments. Usage: &e{usage}"
   invalid_number: "&cPlease provide a valid number."
+  portal_not_found: "&cPortal &e{name}&c does not exist."
+  warp_not_found: "&cWarp &e{name}&c does not exist."
 
 success:
   fly_enabled: "&aFlight mode enabled."
@@ -21,6 +27,10 @@ success:
   portal_wand_received: "&aPortal wand added to your inventory."
   teleport_random: "&aRandom teleporting..."
   teleport_success: "&aTeleported to &e{location}&a."
+  portal_cooldown_message: "You must wait {cooldown} seconds before using this portal again!"
+  portal_created: "&aPortal &e{name}&a successfully created!"
+  portal_deleted: "&cPortal &e{name}&c has been deleted."
+  portal_list: "&aPortal list: &e{list}"
 
 commands:
   fly: "/fly - Toggle flight mode."
@@ -30,3 +40,53 @@ commands:
   warp: "/warp <name> - Teleport to a saved warp."
   portal: "/gkportalwand - Get a portal selection wand."
   rtp: "/rtp - Random teleport to a safe location."
+  pos1: "/pos1 - Set position 1 for a portal."
+  pos2: "/pos2 - Set position 2 for a portal."
+  setdesti: "/setdesti <name> - Set the destination for a portal."
+  gkportalregion: "/gkportalregion create <name> <pos1> <pos2> <destination> - Create a portal region."
+
+portal:
+  set_position1: "&aPosition 1 set at &e{x}, {y}, {z}."
+  set_position2: "&aPosition 2 set at &e{x}, {y}, {z}."
+  invalid_position: "&cInvalid position type!"
+  set_destination_usage: "&cUsage: /setdesti <destination>"
+  destination_set: "&aDestination &e{destination} &aset successfully!"
+  destination_failed: "&cFailed to set destination!"
+  destination_not_found: "&cDestination &e{destination} &cnot found!"
+  create_usage: "&cUsage: /gkportalregion create <name> <destination>"
+  created_success: "&aPortal &e{portal} &acreated successfully!"
+  create_failed: "&cFailed to create portal &e{portal}!"
+  positions_not_set: "&cYou must set both positions before creating a portal!"
+  delete_usage: "&cUsage: /deleteportal <name>"
+  deleted_success: "&aPortal &e{portal} &adeleted successfully!"
+  delete_failed: "&cFailed to delete portal &e{portal}!"
+  no_portals_found: "&cNo portals found!"
+  list: "&aPortals: &e{portals}"
+  wand_granted: "&aYou have received the portal wand!"
+  preview_start: "&aPreviewing portal region..."
+
+
+
+  tpa:
+    usage: "§cUsage: /tpa <player>"
+    self_request: "§cYou cannot send a teleport request to yourself!"
+    request_sent: "§aTeleport request sent to {target}."
+    request_received: "§a{player} has requested to teleport to you. Use /tpaccept or /tpdeny."
+    cooldown: "§cYou must wait {time} seconds before sending another request."
+    not_found: "§cPlayer not found."
+  tpaccept:
+    success: "§aAccepted teleport request from {player}."
+    accepted: "§aYour teleport request to {target} has been accepted."
+    no_request: "§cNo teleport requests to accept."
+  tpdeny:
+    success: "§aDenied teleport request from {player}."
+    denied: "§cYour teleport request to {target} has been denied."
+    no_request: "§cNo teleport requests to deny."
+  tp:
+    usage: "§cUsage: /tp <player>"
+    success: "§aTeleported to {target}."
+    not_found: "§cPlayer not found."
+  tphere:
+    usage: "§cUsage: /tphere <player>"
+    success: "§aTeleported {target} to you."
+    not_found: "§cPlayer not found."

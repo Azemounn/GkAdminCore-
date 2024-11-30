@@ -1,22 +1,18 @@
-package com.gameknight.admincore.utils
+package com.gkadmincore.utils
 
-import org.bukkit.ChatColor
-import org.bukkit.configuration.file.YamlConfiguration
-import java.io.File
+import org.bukkit.command.CommandSender
+import org.bukkit.plugin.java.JavaPlugin
 
-object MessageUtils {
-    private lateinit var messages: YamlConfiguration
+object MessagesUtils {
+    private lateinit var plugin: JavaPlugin
 
-    fun loadMessages(dataFolder: File) {
-        val file = File(dataFolder, "messages.yml")
-        if (!file.exists()) {
-            dataFolder.mkdirs()
-            file.createNewFile()
-        }
-        messages = YamlConfiguration.loadConfiguration(file)
+    fun loadMessages(plugin: JavaPlugin) {
+        this.plugin = plugin
     }
 
-    fun getMessage(key: String): String {
-        return messages.getString(key, ChatColor.RED.toString() + "Message not found: $key")!!
+    fun sendNoPermissionMessage(sender: CommandSender) {
+        sender.sendMessage("§6[GameKnight2k] §cYou do not have permission to execute this command.")
+        sender.sendMessage("§7Plugin Version: ${plugin.description.version}")
+        sender.sendMessage("§7Created by Azemounn.")
     }
 }

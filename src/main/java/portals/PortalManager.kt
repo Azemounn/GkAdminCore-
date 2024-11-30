@@ -1,76 +1,108 @@
-package com.gameknight.admincore.portal
+package com.gkadmincore.portals
 
-import com.gameknight.admincore.AdminCore
+import com.gkadmincore.utils.ConfigUtils
 import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.configuration.file.YamlConfiguration
-import java.io.File
 
-class PortalManager(private val plugin: AdminCore) {
+object PortalManager {
+    private val portals = mutableMapOf<String, Portal>()
 
-    private val portalFile: File = File(plugin.dataFolder, "portals.yml")
-    private val portalConfig: YamlConfiguration = YamlConfiguration.loadConfiguration(portalFile)
+    // --- Load portals from configuration ---
+    fun loadPortals() {
+        portals.clear() // Clear any existing portals before loading
+        ConfigUtils.getPortalList().forEach { portalName ->
+            val portalData = ConfigUtils.getPortal(portalName) // Triple<Location, Location, String>
+            if (portalData != null) {
+                val (pos1, pos2, destinationName) = portalData
 
-    private val warpFile: File = File(plugin.dataFolder, "warps.yml")
-    private val warpConfig: YamlConfiguration = YamlConfiguration.loadConfiguration(warpFile)
-
-    init {
-        if (!portalFile.exists()) {
-            plugin.saveResource("portals.yml", false)
+                // Resolve the destination from the warp list
+                val destination = ConfigUtils.getWarp(destinationName)
+                if (destination != null) {
+                    portals[portalName] = Portal(portalName, pos1, pos2, destination)
+                } else {
+                    Bukkit.getLogger().warning("Invalid portal destination for portal: $portalName")
+                }
+            } else {
+                Bukkit.getLogger().warning("Portal $portalName is not properly configured.")
+            }
         }
-        if (!warpFile.exists()) {
-            plugin.saveResource("warps.yml", false)
+    }
+
+    // --- Get an active portal for a player's location ---
+    fun getActivePortal(location: Location): Portal? {
+        return portals.values.find { it.isInside(location) }
+    }
+
+    // --- Save a portal to the configuration ---
+    fun savePortal(name: String, pos1: Location, pos2: Location, destinationName: String): Boolean {
+        val success = ConfigUtils.addPortal(name, pos1, pos2, destinationName)
+        if (success) {
+            val destination = ConfigUtils.getWarp(destinationName)
+            if (destination != null) {
+                portals[name] = Portal(name, pos1, pos2, destination)
+            }
         }
+        return success
     }
 
-    fun setPortalRegion(portalName: String, pos1: Location?, pos2: Location?) {
-        if (pos1 != null) portalConfig.set("$portalName.pos1", serializeLocation(pos1))
-        if (pos2 != null) portalConfig.set("$portalName.pos2", serializeLocation(pos2))
-        savePortalConfig()
+    // --- Delete a portal from the configuration ---
+    fun deletePortal(name: String): Boolean {
+        val success = ConfigUtils.deletePortal(name)
+        if (success) {
+            portals.remove(name)
+        }
+        return success
     }
 
-    fun setPortalDestination(portalName: String, destination: Location) {
-        portalConfig.set("$portalName.destination", serializeLocation(destination))
-        warpConfig.set(portalName, serializeLocation(destination))
-        savePortalConfig()
-        saveWarpConfig()
+    // --- Get a list of all portal names ---
+    fun getPortalList(): List<String> {
+        return portals.keys.toList() // Return a list of portal names
     }
 
-    fun getPortalDestination(portalName: String): Location? {
-        val locationString = portalConfig.getString("$portalName.destination") ?: return null
-        return deserializeLocation(locationString)
+    // --- Create a portal ---
+    fun createPortal(name: String, pos1: Location, pos2: Location, destinationName: String): Boolean {
+        // Check if portal already exists
+        if (portals.containsKey(name)) {
+            Bukkit.getLogger().warning("Portal with name '$name' already exists!")
+            return false // Portal already exists, can't create another with the same name
+        }
+
+        // Ensure both positions are valid
+        if (pos1 == null || pos2 == null) {
+            Bukkit.getLogger().warning("Invalid portal positions!")
+            return false // Invalid positions
+        }
+
+        // Check if destination exists
+        val destination = ConfigUtils.getWarp(destinationName)
+        if (destination == null) {
+            Bukkit.getLogger().warning("Destination '$destinationName' not found!")
+            return false // Invalid destination
+        }
+
+        // Create and save the portal
+        portals[name] = Portal(name, pos1, pos2, destination)
+        ConfigUtils.addPortal(name, pos1, pos2, destinationName) // Save the portal to config
+        Bukkit.getLogger().info("Portal '$name' created successfully!")
+        return true
     }
 
-    fun getAllWarps(): Set<String> {
-        return warpConfig.getKeys(false)
-    }
+    // --- Data class for portal representation ---
+    data class Portal(val name: String, val pos1: Location, val pos2: Location, val destination: Location) {
 
-    fun getWarpLocation(warpName: String): Location? {
-        val locationString = warpConfig.getString(warpName) ?: return null
-        return deserializeLocation(locationString)
-    }
+        // Check if the player is inside the portal's region
+        fun isInside(location: Location): Boolean {
+            val minX = minOf(pos1.x, pos2.x)
+            val maxX = maxOf(pos1.x, pos2.x)
+            val minY = minOf(pos1.y, pos2.y)
+            val maxY = maxOf(pos1.y, pos2.y)
+            val minZ = minOf(pos1.z, pos2.z)
+            val maxZ = maxOf(pos1.z, pos2.z)
 
-    private fun savePortalConfig() {
-        portalConfig.save(portalFile)
-    }
-
-    private fun saveWarpConfig() {
-        warpConfig.save(warpFile)
-    }
-
-    private fun serializeLocation(location: Location): String {
-        return "${location.world?.name},${location.x},${location.y},${location.z},${location.yaw},${location.pitch}"
-    }
-
-    private fun deserializeLocation(data: String): Location? {
-        val parts = data.split(",")
-        if (parts.size != 6) return null
-        val world = Bukkit.getWorld(parts[0]) ?: return null
-        val x = parts[1].toDouble()
-        val y = parts[2].toDouble()
-        val z = parts[3].toDouble()
-        val yaw = parts[4].toFloat()
-        val pitch = parts[5].toFloat()
-        return Location(world, x, y, z, yaw, pitch)
+            return location.x in minX..maxX &&
+                    location.y in minY..maxY &&
+                    location.z in minZ..maxZ &&
+                    location.world?.name == pos1.world?.name
+        }
     }
 }

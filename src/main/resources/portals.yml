@@ -1,8 +1,13 @@
-portal1:
-  pos1: "world,100,65,200,0,0"
-  pos2: "world,110,70,210,0,0"
-  destination: "world,500,70,500,0,0"
-portal2:
-  pos1: "world,300,65,400,0,0"
-  pos2: "world,310,70,410,0,0"
-  destination: "world,600,70,600,0,0"
+portals:
+  portal1:
+    pos1: "world,100,65,200,0,0"
+    pos2: "world,110,70,210,0,0"
+    destination: "spawn"
+  portal2:
+    pos1: "world,300,65,400,0,0"
+    pos2: "world,310,70,410,0,0"
+    destination: "shop"
+  examplePortal:
+    pos1: "spawn,100,65,100"
+    pos2: "spawn,110,75,110"
+    destination: "spawn,105,70,105"

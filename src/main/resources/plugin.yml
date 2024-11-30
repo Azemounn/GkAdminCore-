@@ -1,6 +1,7 @@
 name: GKAdminCore
 version: 1.0
-main: com.gameknight.admincore.AdminCore
+main: com.gkadmincore.AdminCore
+author: Azemounn
 api-version: 1.21
 
 commands:
@@ -9,13 +10,10 @@ commands:
     permission: gkadmincore.fly
   flyspeed:
     description: Adjusts flight speed for a player.
-    permission: gkadmincore.fly
+    permission: gkadmincore.fly.speed
   sudo:
     description: Runs a command as another player.
     permission: gkadmincore.sudo
-  enchant:
-    description: Enchants an item, bypassing vanilla restrictions.
-    permission: gkadmincore.enchant
   warp:
     description: Teleports to a saved warp.
     aliases: [gkwarp]
@@ -25,43 +23,91 @@ commands:
     permission: gkadmincore.rtp
   pos1:
     description: Sets the first position for a portal region.
-    permission: gkadmincore.portal
+    permission: gkadmincore.portal.pos
   pos2:
     description: Sets the second position for a portal region.
-    permission: gkadmincore.portal
-  setpos3:
+    permission: gkadmincore.portal.pos
+  setdesti:
     description: Sets the destination for a portal region.
-    permission: gkadmincore.portal
+    permission: gkadmincore.portal.destination
   gkportalwand:
     description: Gives the portal selection wand.
     aliases: [portalwand]
+    permission: gkadmincore.portal.wand
+  gkportalregion:
+    description: Manage portal regions.
     permission: gkadmincore.portal
-  gka:
-    description: Displays public plugin info.
-  info:
-    description: Provides detailed information about the plugin.
-    aliases: [help]
-    permission: gkadmincore.info
-  publicinfo:
-    description: Displays public plugin info.
-    permission: gkadmincore.public
+  deleteportal:
+    description: Deletes an existing portal region.
+    permission: gkadmincore.portal
+  listportals:
+    description: Lists all existing portals.
+    permission: gkadmincore.portal
+  tp:
+    description: Teleports to another player.
+    permission: gkadmincore.tp
+  tphere:
+    description: Teleports a player to your location.
+    permission: gkadmincore.tphere
+  tpa:
+    description: Sends a teleport request to another player.
+    permission: gkadmincore.tpa
+  tpaccept:
+    description: Accepts a pending teleport request.
+    permission: gkadmincore.tpa.manage
+  tpdeny:
+    description: Denies a pending teleport request.
+    permission: gkadmincore.tpa.manage
+  enchant:
+    description: Adds an enchantment to the held item.
+    permission: gkadmincore.enchant
 
 permissions:
   gkadmincore.fly:
     default: op
+    description: Allows toggling flight mode.
   gkadmincore.fly.speed:
     default: op
+    description: Allows setting flight speed.
   gkadmincore.sudo:
     default: op
-  gkadmincore.enchant:
-    default: op
+    description: Allows running commands as another player.
   gkadmincore.warp:
     default: true
+    description: Allows using warp commands.
   gkadmincore.rtp:
     default: op
+    description: Allows random teleportation.
   gkadmincore.portal:
     default: op
-  gkadmincore.info:
+    description: Allows creating and managing portals.
+  gkadmincore.portal.wand:
     default: op
-  gkadmincore.public:
+    description: Allows granting and using the portal wand.
+  gkadmincore.portal.pos:
+    default: op
+    description: Allows setting portal positions.
+  gkadmincore.portal.destination:
+    default: op
+    description: Allows setting portal destinations.
+  gkadmincore.tpa:
     default: true
+    description: Allows sending teleport requests.
+  gkadmincore.tpa.manage:
+    default: true
+    description: Allows accepting or denying teleport requests.
+  gkadmincore.tp:
+    default: op
+    description: Allows teleporting to other players.
+  gkadmincore.tphere:
+    default: op
+    description: Allows teleporting players to your location.
+  gkadmincore.portal.create:
+    default: op
+    description: Allows creating new portals.
+  gkadmincore.portal.delete:
+    default: op
+    description: Allows deleting existing portals.
+  gkadmincore.portal.list:
+    default: op
+    description: Allows listing all existing portals.

@@ -8,9 +8,9 @@ version = "1.0"
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") } // Spigot API
-    maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") } // Snapshots
-    maven { url = uri("https://oss.sonatype.org/content/repositories/releases/") } // Releases
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") // Spigot API
+    maven("https://oss.sonatype.org/content/repositories/snapshots/") // Snapshots
+    maven("https://oss.sonatype.org/content/repositories/releases/") // Releases
 }
 
 dependencies {
@@ -18,15 +18,15 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.21")
 
     // Spigot/Bukkit API
-    compileOnly("org.spigotmc:spigot-api:1.21.3-R0.1-SNAPSHOT") // Adjust for your server version
+    compileOnly("org.spigotmc:spigot-api:1.21.3-R0.1-SNAPSHOT") // Match your Spigot server version
 
-    // Guava (for utility functions)
+    // Guava for utilities
     implementation("com.google.guava:guava:31.1-jre")
 
-    // Configurable Yaml (optional)
+    // SnakeYAML for advanced YAML parsing
     implementation("org.yaml:snakeyaml:1.33")
 
-    // Shadow plugin dependencies (for building fat JAR)
+    // Testing framework
     testImplementation("junit:junit:4.13.2")
 }
 
@@ -34,23 +34,23 @@ tasks {
     // Kotlin compiler settings
     compileKotlin {
         kotlinOptions {
-            jvmTarget = "17" // Target Java 17, as required by Minecraft 1.21.3
+            jvmTarget = "17" // Target Java 17, required for Minecraft 1.21.3
         }
     }
 
     // Java compiler settings
     compileJava {
-        options.release.set(17) // Match Minecraft's Java 17 requirement
+        options.release.set(17) // Ensure Java 17 compatibility
     }
 
-    // Shadow JAR task for fat JARs
+    // Shadow JAR task
     shadowJar {
-        archiveClassifier.set("") // Output as main JAR
+        archiveClassifier.set("") // Outputs the main JAR
         configurations = listOf(project.configurations.runtimeClasspath.get())
-        minimize() // Reduce JAR size
+        minimize() // Reduce JAR size by minimizing dependencies
     }
 
-    // Standard JAR task
+    // Standard JAR task (if not using Shadow JAR)
     jar {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         from({
@@ -66,10 +66,14 @@ tasks {
             expand("version" to version)
         }
     }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17)) // Use Java 17 toolchain
+        languageVersion.set(JavaLanguageVersion.of(17)) // Set Java toolchain to version 17
     }
 }

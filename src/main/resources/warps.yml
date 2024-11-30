@@ -1,0 +1,6 @@
+warps:
+  spawn:
+    world: "world"
+    x: 0
+    y: 64
+    z: 0

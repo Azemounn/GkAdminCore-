@@ -1,0 +1,29 @@
+# GKAdminCore General Configurations
+
+plugin-info:
+  version: 1.0
+  author: "Azemounn"
+  server-name: "GameKnight2k"
+
+aliases:
+  # Global command aliases
+  fly: [flymode]
+  warps: [warp, listwarps]
+  portals: [portal, gkportal]
+
+permissions-defaults:
+  # Define defaults for non-ops
+  default:
+    fly: false
+    warp: false
+    rtp: true
+    tpa: true
+    portal: false
+
+  # Define defaults for ops
+  op:
+    fly: true
+    warp: true
+    rtp: true
+    tpa: true
+    portal: true
